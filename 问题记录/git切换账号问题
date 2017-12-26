@@ -1,0 +1,56 @@
+1、当你电脑已经绑定一个git账号的时候，去切换另一个账号的时候
+1）切换账号
+    git config --global user.email [你的邮箱]
+    git config --global user.name [你的名字]
+2）这个时候安流程去提交文件
+    git init => git add . => git status => git commit -m '' => git remote add origin [你的地址]
+    => git pull origin master(基本上会用这句户报错的话，报的错里面会有pull这个关键字)
+    => git pull origin master --allow-unrelated-histories(当远程仓库与你本地仓库不相同的时候 可以尝试一下在add 这个时候改一下仓库的名字)
+    => git push -u(第一次加-u,以后不用) origin master
+
+3) 这个时候报错
+    remote: Permission to currentAccount/currentRepo denied to previousAccount.
+    fatal: unable to access 'https://github.com/currentAccount/currentRepo/': The requested URL returned error: 403
+
+    这个时候的解决方法
+
+    1.设置Git的user name和email
+    git config --global user.name "yourname"
+    git config --global user.email "youremail"
+
+    2.生成SSH密钥
+    查看是否已经有了ssh密钥：cd ~/.ssh
+    如果没有密钥则不会有此文件夹，有则备份删除
+    生存密钥：
+    ssh-keygen -t rsa -C “haiyan.xu.vip@gmail.com”
+    按3个回车，密码为空。
+    Your identification has been saved in /home/tekkub/.ssh/id_rsa.
+    Your public key has been saved in /home/tekkub/.ssh/id_rsa.pub.
+    The key fingerprint is:
+    ………………
+    最后得到了两个文件：id_rsa和id_rsa.pub
+    添加密钥到ssh：ssh-add 文件名,需要之前输入密码.
+
+    在github上添加ssh密钥，这要添加的是“id_rsa.pub”里面的公钥。
+    打开https://github.com/,在设置中添加密钥
+
+    到这，问题还没解决 git push 还是 还是报拒绝的错误
+
+    3.查看账号信息
+    git config --list 返回的信息也是正确的
+
+    4.验证权限
+    ssh -T git@github.com
+    这里可能需要选着yes 生成文件
+    返回的信息是
+    Hi lut! You've successfully authenticated, but GitHub does not provide shell access.
+
+    5.再一次 设置远程路径 (ssh地址)
+    git remote set-url origin git@github.com:tinper-bee/formControl.git
+    然后再git push 我的代码 上github上看发现还是原来的账号提交的代码（因之前下载下来的代码是用之前的账号）
+    我在本地代码再做一次修改 然后提交 这次github上的账号显示正常
+
+4) 重复2的步骤 基本上解决所有问题
+
+
+
