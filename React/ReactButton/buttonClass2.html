@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        const DOM = state => {
+            return `
+            <button>
+                <span class='button-text'>${state.isLike ? '点赞' : '取消'}</span>
+                <span>👍</span>
+            </button>
+            `};
+
+        const createDOMFromString = domString => {
+            let div = document.createElement('div');
+            div.innerHTML = domString;
+            return div;
+        }
+
+        class Button {
+            constructor() {
+                this.state = {
+                    isLike: false
+                }
+            }
+
+            setState(state) {
+                this.state = state;
+                const oldValue = this.el;
+                const newValue = this.render();
+                if (this.onChange) this.onChange(oldValue, newValue);
+            }
+
+            render() {
+                this.el = createDOMFromString(DOM(this.state));
+                this.el.addEventListener('click', this.changeLikeText.bind(this), false);
+                return this.el;
+            }
+
+            changeLikeText() {
+                this.setState({
+                    isLike: !this.state.isLike
+                })
+            }
+        }
+
+        const button = new Button();
+        button.onChange = (oldValue, newValue) => {
+            document.body.insertBefore(newValue, oldValue);
+            document.body.removeChild(oldValue);
+        }
+        document.body.appendChild(button.render());
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 将组件抽象成公共组件 -->
+    <script type="text/javascript">
+
+        const createDOMFromString = domString => {
+            let div = document.createElement('div');
+            div.innerHTML = domString;
+            return div;
+        }
+
+        class Component {
+            constructor(props = {}) {
+                this.props = props
+            }
+
+            setState(state) {
+                this.state = state;
+                const oldDom = this.el;
+                this.el = this._render();
+                if (this.onChange) {
+                    this.onChange(oldDom, this.el);
+                }
+            }
+
+            _render() {
+                this.el = createDOMFromString(this.render());
+                this.el.addEventListener('click', this.onClick.bind(this), false);
+                return this.el;
+            }
+        }
+
+        class Button extends Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    isLike: true
+                }
+            }
+
+            render() {
+                return `
+                    <button>
+                        <span class='button-text' style='color:${this.props.color}'>${this.state.isLike ? '点赞' : '取消'}</span>
+                        <span>👍</span>
+                    </button>
+                `;
+            }
+
+            onClick() {
+                this.setState({
+                    isLike: !this.state.isLike
+                })
+            }
+        }
+
+        const mount = (component, wrapper) => {
+            wrapper.appendChild(component._render());
+            component.onChange = (oldValue, newValue) => {
+                wrapper.insertBefore(newValue, oldValue);
+                wrapper.removeChild(oldValue);
+            }
+        }
+
+        mount(new Button({ color: 'red' }), document.body);
+    </script>
+</body>
+
+</html>
