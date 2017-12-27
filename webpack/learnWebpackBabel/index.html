@@ -7,17 +7,38 @@
 <script src="dist/3.js"></script>
 <body>
 <script>
-    let a = {}, b = 1;
-    (function (a, b) {
-        a.c = 10;
-    }).call(this, a, b);
-    (function (a, b) {
-        a.c = 8;
-    }).call(this, a, b);
-    console.log(a);
-    Object(function () {
-        alert(1);
-    })()
+    // let a = {}, b = 1;
+    // (function (a, b) {
+    //     a.c = 10;
+    // }).call(this, a, b);
+    // (function (a, b) {
+    //     a.c = 8;
+    // }).call(this, a, b);
+    // console.log(a);
+    // Object(function () {
+    //     alert(1);
+    // })()
+    // 错误
+    // function gg() {
+    //     alert(1)
+    // }()
+    // 正确
+    const a = function () {
+        alert(1)
+    }();
+
+    // 测试静态常量，实例可以访问吗
+    class ac {
+        // static c = {
+        //     a: 3
+        // };
+    }
+
+    var aa = new ac();
+    // console.log(aa.c);
+    // 答 原型链的查找并不会查找他的构造函数  判断原型的方法有哪些
+    console.log(Object.getPrototypeOf(aa) === ac.prototype);
+    console.log(ac.prototype.isPrototypeOf(aa));
 </script>
 </body>
 </html>

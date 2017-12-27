@@ -1,0 +1,3 @@
+关于babel import和export转为问题
+    在babel中使用env的时候，发现import转换失败，一直是import，这里导致babel并没有对模块进行转换，而是webpack进行的转换。
+    想要babel对模块import等关键字进行转换，必须是有es-2015这个模块
