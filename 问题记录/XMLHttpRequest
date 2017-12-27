@@ -1,0 +1,5 @@
+在Chrome和FireFox上，onload会在脚本加载完之后触发，在回调函数中脚本的内容已经加载完全。
+而这两个浏览器的script标签是不支持onreadystatechange事件的。
+在IE上比较有趣。IE9两个事件都是支持的，而IE8、7、6则只支持onreadystatechange。
+在onreadystatechange事件处理程序中还需要判断script.readyState属性。经观察之后发现其实当loaded的时候，脚本的内容已经可用了。
+但是在某些情况下，loaded之后脚本的内容还没有完全加载。遇到这些情况只能增加一个setTimeout了。
