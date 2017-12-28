@@ -1,51 +1,32 @@
 import React, {Component} from 'react';
-import ajax from '../getData';
+import PropTypes from 'prop-types';
+import './App.css';
 
-const userAjaxGetData = (wrapperComponent, etx) => {
-    class AjaxGetData extends Component {
-        constructor() {
-            super();
-            this.state = {
-                users: []
-            }
-        }
+class App extends Component {
+    static childContextTypes = {
+        themeColor: PropTypes.string
+    };
 
-        componentWillMount() {
-            ajax('get', '../data.' + etx, '').then((resolve) => {
-                this.setState({
-                    users: resolve.users
-                })
-            }, (reject) => {
-                throw new Error('获取数据失败');
-            })
-        }
-
-        render() {
-            return (
-                <wrapperComponent users={this.state.users}/>
-            )
+    constructor() {
+        super();
+        this.state = {
+            themeColor: 'red'
         }
     }
 
-    return AjaxGetData;
-};
-
-@userAjaxGetData
-class App extends Component {
-    constructor(props, context) {
-        super(props, context);
+    getChildContext() {
+        return {
+            themeColor: this.state.themeColor
+        }
     }
 
     render() {
         return (
-            <div>
-                {this.props.users.map((user, index) => {
-                    return <span>{user.name}--{user.sex}</span>
-                })}
+            <div className="App">
+
             </div>
-        )
+        );
     }
 }
-
 
 export default App;

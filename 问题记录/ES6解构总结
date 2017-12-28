@@ -1,0 +1,13 @@
+对于ES6 ... 这个问题，这是个遍历器 对于函数参数来说，先遍历，后赋值
+
+function(...obj) 无论是数组还是对象或者什么
+
+for (var _len2 = arguments.length, c = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        c[_key2] = arguments[_key2];
+    }
+
+    c就是个数组，将每个参数依次装进数组
+
+{...obj} => object.assgin({},obj);对象套对象 可并
+[...obj] => [].concat(obj) 数组套数组 合并
+[].concat()这个方法这能合并一维数组，或者某个变量

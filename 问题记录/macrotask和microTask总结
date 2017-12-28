@@ -1,0 +1,11 @@
+在浏览器的执行js代码的时候，在进行Event Loop的时候，会出现这两种队列
+macroTask: setTimeout, setInterval, setImmediate, requestAnimationFrame, I/O, UI rendering
+microTask: process.nextTick, Promise.then, Object.observe, MutationObserver
+
+
+这时候浏览器的执行是这样的
+    正常单线程加载
+    把所有的microTask执行完成(不算macrotask)
+    第一次结束
+    在执行macroTask这个队列里面正常代码和microtask
+    UI渲染
