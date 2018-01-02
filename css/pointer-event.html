@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    a{
+        pointer-events: none;
+    }
+</style>
+<body>
+<a href="http://www.baidu.com">去百度</a>
+<button>移除css效果</button>
+<script>
+    var oA = document.querySelector('a');
+    var oButton = document.querySelector('button');
+    oButton.addEventListener('click',function () {
+        oA.style.pointerEvents = 'all';
+    },false);
+</script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width">
+    <title>Title</title>
+</head>
+<!--<script src="slider.js"></script>-->
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .c {
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .a {
+        overflow: hidden;
+        transition: all 0s ease;
+    }
+
+    .a > div {
+        height: 200px;
+        float: left;
+    }
+</style>
+<body>
+<div class="c">
+    <div class="a"></div>
+</div>
+<button>go</button>
+
+</body>
+<script>
+    var oA = document.querySelector('.a');
+    var oButton = document.querySelector('button');
+    let str = '';
+    for (var i = 0; i < 10; i++) {
+        str += `<div style='background-color: rgb(${getRandom(0, 255)},${getRandom(0, 255)},${getRandom(0, 255)});width: 200px;'></div>`;
+    }
+
+    oA.innerHTML = str;
+    oA.style.width = i * 200 + 'px';
+
+    function getRandom(max, min) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+    var pageX, pageY, disX, disY, sumX = 0, sumY = 0, nowPositX = 0, nowPositY = 0;
+    document.addEventListener('touchstart', function (e) {
+        console.log(e);
+        pageX = e.touches[0].pageX;
+        pageY = e.touches[0].pageY;
+    }, false);
+    document.addEventListener('touchmove', function (e) {
+        disX = e.touches[0].pageX - pageX;
+        disY = e.touches[0].pageY - pageY;
+        pageX = e.touches[0].pageX;
+        pageY = e.touches[0].pageY;
+        sumX += disX;
+        sumY += disY;
+        nowPositX = sumX + disX;
+        nowPositY = sumY + disY;
+        if (nowPositX > 0) {
+            sumX = sumX + disX / 3;
+        }
+        if (e.touches[0].pageX < 0) {
+            alert(1);
+        }
+        oA.style.transform = `translate(${sumX}px,0px)translateZ(0)`;
+    });
+    document.addEventListener('touchend', function (e) {
+        if (nowPositX < -400) {
+            oA.style.transform = `translate(0px,0px)translateZ(0)`;
+            nowPositX = 0;
+            nowPositY = 0;
+            sumX = 0;
+            sumY = 0;
+        }
+        if(nowPositX > 0){
+            oA.style.transform = `translate(50px,0px)translateZ(0)`;
+            nowPositX = 0;
+            nowPositY = 0;
+            sumX = 50;
+            sumY = 0;
+            setTimeout(function () {
+                oA.style.transform = `translate(0px,0px)translateZ(0)`;
+                nowPositX = 0;
+                nowPositY = 0;
+                sumX = 0;
+                sumY = 0;
+            },3000)
+        }
+    })
+
+</script>
+</html>

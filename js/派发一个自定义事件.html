@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    .a {
+        width: 500px;
+        height: 500px;
+        background-color: red;
+    }
+
+    .b {
+        width: 300px;
+        height: 300px;
+        margin: auto;
+        background-color: yellow;
+    }
+</style>
+<body>
+<div class="a">
+    <div class="b"></div>
+</div>
+<script>
+    var oA = document.querySelector('.a');
+    var oB = document.querySelector('.b');
+    // Create the event.
+    var event = document.createEvent('Event');
+
+    // Define that the event name is 'build'.
+    event.initEvent('build', true, true);
+
+    // Listen for the event.
+    oB.addEventListener('build', function (e) {
+        console.log(1);
+    }, false);
+
+    // target can be any Element or other EventTarget.
+    oB.dispatchEvent(event);
+</script>
+</body>
+</html>
