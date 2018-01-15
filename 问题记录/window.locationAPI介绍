@@ -1,0 +1,26 @@
+                            既可以赋值也可以获取值
+//获取参数 search	从问号 (?) 开始的 URL（查询部分）(第一个#到第一个?之间）
+window.location.hash
+// 获取#开头的值 一般应该是#=>?(不包含)
+window.location.search
+
+
+
+
+window.location.href
+
+手动跳转页面
+window.location.href = 'www.baidu.com'
+获取浏览器的地址(完整地址)
+                                函数
+强制从服务器重新加载当前页面
+window.location.reload(true)
+加载 URL 指定的新的 HTML 文档。 就相当于一个链接，跳转到指定的url，当前页面会转为新页面内容，可以点击后退返回上一个页面。
+window.location.assign()
+Location.replace()方法以给定的URL来替换当前的资源。 与assign() 方法 不同的是调用replace()方法后，
+当前页面不会保存到会话历史中（session History），这样用户点击回退按钮将不会再跳转到该页面。
+window.location.replace()
+
+
+以上两者方法可以是相对路径和绝对路径
+

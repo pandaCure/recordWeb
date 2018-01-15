@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style type="text/css">
+    .choose {
+        position: absolute;
+        top: 100px;
+    }
+
+    .demo {
+        width: 300px;
+        height: 300px;
+        background-color: red;
+        position: absolute;
+        top: 100px;
+        left: 300px;
+    }
+
+    .range {
+        display: none;
+    }
+</style>
+<body>
+<div class="choose">
+    <div><input type="checkbox" id="a1" value="margin"><label for="a1">增加margin值</label></div>
+    <div class="range"><input type="range" step="1" min="-50" max="50" value="0" name="margin"></div>
+    <div><input type="checkbox" id="a2" value="padding"><label for="a2">增加padding值</label></div>
+    <div class="range"><input type="range" step="1" min="0" max="50" value="0" name="padding"></div>
+    <div><input type="checkbox" id="a3" value="border"><label for="a3">增加border值</label></div>
+    <div class="range"><input type="range" step="1" min="-50" max="50" value="0" name="border"></div>
+    <div><input type="checkbox" id="a4" value="borderRadius"><label for="a4">增加圆角</label></div>
+    <div class="range"><input type="range" step="1" min="-50" max="50" value="0" name="borderRadius"></div>
+    <div><input type="checkbox" id="a5" value="boxShadowXOffset"><label for="a5">增加X轴阴影</label></div>
+    <div class="range"><input type="range" step="1" min="-50" max="50" value="0"></div>
+    <div><input type="checkbox" id="a6" value="boxShadowYOffset"><label for="a6">增加Y轴阴影</label></div>
+    <div class="range"><input type="range" step="1" min="-50" max="50" value="0"></div>
+    <div><input type="checkbox" id="a7" value="boxShadowBlurRadius"><label for="a7">增加模糊距离</label></div>
+    <div class="range"><input type="range" step="1" min="-50" max="50" value="0"></div>
+    <div><input type="checkbox" id="a8" value="boxShadowSpreadRadius"><label for="a8">增加阴影的尺寸</label></div>
+    <div class="range"><input type="range" step="1" min="-50" max="50" value="0"></div>
+    <div><input type="radio" id="a9" value="boxShadowInset" name="a"><label for="a9">外部阴影</label></div>
+    <div><input type="radio" id="a10" value="boxShadowOutset" name="a"><label for="a10">内部阴影</label></div>
+</div>
+<div class="demo"></div>
+<script>
+    let oCheckbox = document.querySelectorAll("input[type='checkbox']");
+    let oRange = document.querySelectorAll("input[type='range']");
+    let show = document.querySelectorAll('.range');
+    let demo = document.querySelector('.demo');
+    let attrArray = [];
+    for (let i = 0, len = oCheckbox.length; i < len; i++) {
+        oCheckbox[i].addEventListener('click', function () {
+            if (this.checked) {
+                show[i].style.display = 'block';
+                attrArray[i] = this.value
+            } else {
+                show[i].style.display = 'none';
+                attrArray.splice(i, 1)
+            }
+
+            console.log(attrArray)
+        })
+    }
+    for (let i = 0, len = oRange.length; i < len; i++) {
+        oRange[i].addEventListener('input', function () {
+            if (this.getAttribute('name') === attrArray[i]) {
+               demo.style[this.getAttribute('name')] = this.value + 'px';
+            }else if(this.getAttribute('name') === 'border'){
+                demo.style.border = `${this.value}px solid green`;
+            }else if(this.getAttribute('name') === 'borderRadius'){
+                demo.style.borderRadius = `${this.value}px`;
+            }else if(this.getAttribute('name') === 'boxShadowXOffset'){
+                demo.style.boxShadow = `${this.value}px`;
+            }else if(this.getAttribute('name') === 'boxShadowYOffset'){
+                demo.style.boxShadow = `${this.value}px`;
+            }
+        })
+    }
+
+
+</script>
+</body>
+</html>

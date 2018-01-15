@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var a = {
+        name: "jjj",
+        age: 12,
+        sex: "man"
+    }
+
+    for (var i in a) {
+        console.log(`键：${i}:----:值：${a[i]}`)
+    }
+    var sss = 0
+    function* b(obj) {
+        for (var i in obj) {
+             console.log(yield obj[i])
+            console.log(sss)
+        }
+    }
+
+    var s = b(a)
+    console.log(s.next(10))
+    console.log(s.next(2))
+    console.log(s.next(3))
+    console.log(s.next())
+
+    // 给a增加iterator接口
+    a = {
+        name: "jjj",
+        age: 12,
+        sex: "man",
+        [Symbol.iterator]() {
+            var s = b(this)
+            return {
+                next: function () {
+                    return s.next()
+                }
+            }
+        }
+    }
+
+    for (var i of a) {
+        console.log(`键：${i}:----:值：${a[i]}`)
+    }
+    // 数组具有iterator接口吗
+    var aa = [1, 2, 3, 4]
+    for (var i of aa) {
+        console.log(i)
+    }
+</script>
+</body>
+</html>

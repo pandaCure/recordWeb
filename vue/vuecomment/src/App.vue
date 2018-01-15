@@ -1,33 +1,34 @@
 <template>
   <div id="app">
-    <div class="wrapper">
-      <div class="comment-input">
-        <div class="comment-field">
-          <span class="comment-field-name">用户名：</span>
-          <div class="comment-field-input">
-            <input type="text" v-model="username">
-          </div>
-        </div>
-        <div class="comment-field">
-          <span class="comment-field-name">评论：</span>
-          <div class="comment-field-input">
-            <textarea v-model="content"></textarea>
-          </div>
-        </div>
-        <div class="comment-field">
-          <button class="comment-field-button" @click="getComment">提交</button>
-        </div>
-        <div class="comment-list" v-if="comments.length">
-          <div v-for="(comment,index) in comments">
-            {{comment.username}}:{{comment.content}}
-          </div>
-        </div>
-      </div>
+    <div class="wrapper" ref="wrapper">
+      <!--<div class="comment-input">-->
+        <!--<div class="comment-field">-->
+          <!--<span class="comment-field-name">用户名：</span>-->
+          <!--<div class="comment-field-input">-->
+            <!--<input type="text" v-model="username">-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="comment-field">-->
+          <!--<span class="comment-field-name">评论：</span>-->
+          <!--<div class="comment-field-input">-->
+            <!--<textarea v-model="content"></textarea>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="comment-field">-->
+          <!--<button class="comment-field-button" @click="getComment">提交</button>-->
+        <!--</div>-->
+        <!--<div class="comment-list" v-if="comments.length">-->
+          <!--<div v-for="(comment,index) in comments">-->
+            <!--{{comment.username}}:{{comment.content}}-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
     </div>
   </div>
 </template>
 
 <script>
+  import component from './a'
 
   export default {
     name: 'app',
@@ -45,6 +46,12 @@
           content: this.content
         })
       }
+    },
+    mounted() {
+      this.$nextTick(() => {
+        console.log(component())
+        this.$refs.wrapper.appendChild(component().$el)
+      })
     }
   }
 </script>
