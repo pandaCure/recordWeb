@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--删除节点的几种方法-->
+<!--
+第一种：removeChild
+    这种方法需要知道父级元素和自身元素的节点
+-->
+<ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+    <li>7</li>
+    <li>8</li>
+    <li>9</li>
+    <li>10</li>
+</ul>
+<button>删除</button>
+<script>
+    var ul = document.querySelector('ul');
+    var button = document.querySelector('button');
+    var li = document.querySelectorAll('li');
+    // iE 写法
+    console.log(li[0].parentElement)
+    // w3c标准
+    console.log(li[0].parentNode)
+    // 第一种删除节点的方法
+    // 这种删除只要知道自身的节点和父节点都可以删除，而且删除的自身的节点位置
+    button.addEventListener('click', function () {
+        ul.removeChild(li[5])
+    }, false)
+    // 第二种删除节点的方法
+    // 只父元素去删除子元素
+    button.addEventListener('click', function () {
+        for (var i = 0; i < ul.childNodes.length; ) {
+            // 元素节点
+            if(ul.childNodes[i].nodeType == 1){
+                console.log(ul.childNodes[i]);
+                ul.removeChild(ul.childNodes[i]);
+            }else if(ul.childNodes[i].nodeType == 3){
+                console.log(ul.childNodes[i]);
+                ul.removeChild(ul.childNodes[i]);
+            }
+        }
+    }, false)
+    // 总结  删除节点的方法只有 removeChild这个方法  都是通过DOM节点去删除的  只不过获取DOM节点的方式不同
+
+</script>
+</body>
+</html>
